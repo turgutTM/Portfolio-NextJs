@@ -40,7 +40,7 @@ const Main = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
             <h1 className="text-6xl font-extrabold leading-tight drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]">
-              Hi! I'm Turgut <TypingEffect />
+              Hi! I am Turgut <TypingEffect />
             </h1>
           </motion.div>
           <motion.div
@@ -49,7 +49,7 @@ const Main = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
           >
-            Hello, I'm Turgut Muradlı, I am 20 years old, and I've been
+            Hello, I am Turgut Muradlı, I am 20 years old, and I have been
             developing myself in the field of web development for almost 2
             years. This is my portfolio. I have developed many projects before
             and have also been involved in several collaborative projects. If

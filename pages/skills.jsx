@@ -82,10 +82,10 @@ const Skills = () => {
           <p className="text-lg font-light leading-relaxed">
             Proficient in a range of modern tools and frameworks, capable of
             building robust and responsive web applications with a focus on
-            clean design and efficient performance. I’ve explored everything
+            clean design and efficient performance. I have explored everything
             from frontend libraries to mobile frameworks, always striving to
             produce the best user experience. In addition to core development
-            work, I've delved into DevOps practices and cloud deployments.
+            work, I have delved into DevOps practices and cloud deployments.
             Learning new technologies has become a core part of my daily
             routine, helping me stay ahead in this ever-evolving field. If you
             want to see more, feel free to check my
