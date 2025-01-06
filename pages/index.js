@@ -15,7 +15,7 @@ export default function Home() {
             <Main />
           </div>
         </div>
-        <div id="skills" className="relative z-10 mt-16">
+        <div id="skills" className="relative z-10">
           {" "}
           <Skills />
         </div>
