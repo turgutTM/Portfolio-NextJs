@@ -39,7 +39,7 @@ const Main = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
-            <h1 className="text-6xl font-extrabold leading-tight drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]">
+            <h1 className="text-5xl font-extrabold leading-tight drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]">
               Hi! I am Turgut <TypingEffect />
             </h1>
           </motion.div>
