@@ -3,8 +3,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const Projects = () => {
-  const [showMoreInfo, setShowMoreInfo] = useState(false);
-
   return (
     <div
       id="projects"
@@ -81,7 +79,7 @@ const Projects = () => {
                   alt="Social Media App"
                 />
               </Link>
-         
+
               <div
                 className="
                   absolute inset-0
@@ -302,7 +300,6 @@ const Projects = () => {
             </div>
 
             <div className="flex justify-center gap-4 mt-2">
-         
               <Link
                 href="https://github.com/turgutTM/Chat-App-Socket"
                 target="_blank"
@@ -320,7 +317,6 @@ const Projects = () => {
             </div>
           </div>
 
-         
           <div className="bg-[#1b1a1a] rounded-lg p-5 flex flex-col gap-4">
             <div className="relative group">
               <Link
@@ -387,7 +383,6 @@ const Projects = () => {
             </div>
 
             <div className="flex justify-center gap-4 mt-2">
-            
               <Link
                 href="https://github.com/turgutTM/E-commerce-AI"
                 target="_blank"
@@ -406,7 +401,6 @@ const Projects = () => {
           </div>
         </motion.div>
 
-     
         <motion.div
           className="mt-6"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -414,9 +408,9 @@ const Projects = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <button
-            onClick={() => setShowMoreInfo(!showMoreInfo)}
-            className="
+          <Link href="https://github.com/turgutTM" target="_blank">
+            <button
+              className="
               inline-block
               bg-purple-600
               px-6
@@ -428,35 +422,11 @@ const Projects = () => {
               hover:bg-purple-500
               transition
             "
-          >
-            {showMoreInfo ? "Show Less" : "Show More"}
-          </button>
+            >
+              More
+            </button>
+          </Link>
         </motion.div>
-
-        {showMoreInfo && (
-          <motion.div
-            className="
-              mt-4
-              max-w-3xl
-              w-full
-              bg-[#1b1a1a]
-              p-6
-              rounded-lg
-              text-white
-              font-light
-            "
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <p className="leading-relaxed">
-              Here you can provide additional details about your projects,
-              achievements, or future goals. This area can be used to highlight
-              your coding journey, challenges you’ve overcome, or lessons
-              learned.
-            </p>
-          </motion.div>
-        )}
       </div>
     </div>
   );
