@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(null);
 
-  // Animasyon varyantları
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -25,10 +24,40 @@ const Projects = () => {
     },
   };
 
-  // Proje verilerini tanımlama
   const projects = [
     {
       id: 1,
+      title: "Pixel Art Platform",
+      shortDesc: "Canvas-based pixel art creation",
+      description:
+        "Canvas-based pixel art creation platform with social features, XP system, and monthly competitions. Built with Next.js 14, React, MongoDB, and HTML5 Canvas.",
+      image: "/pixelphoto.png",
+      link: "https://pixeltugu.vercel.app",
+      tags: ["Next.js", "React", "MongoDB", "Canvas"],
+      featured: true,
+    },
+    {
+      id: 2,
+      title: "Önce Rehabilitasyon",
+      shortDesc: "Professional rehabilitation center",
+      description:
+        "Professional rehabilitation center website with modern design and responsive layout. Features appointment booking, service information, and contact forms.",
+      image: "/rehabphoto.png",
+      link: "https://oncurehabilitasyon.com",
+      tags: ["Next.js", "React", "Tailwind", "Responsive"],
+    },
+    {
+      id: 3,
+      title: "Kebapçı Kadir",
+      shortDesc: "Restaurant website with menu",
+      description:
+        "Restaurant website with menu display, online ordering system and location information. Modern design with interactive features and mobile optimization.",
+      image: "/kebapciphoto.png",
+      link: "https://kebapcikadir.com.tr",
+      tags: ["React", "Tailwind", "Responsive", "Mobile"],
+    },
+    {
+      id: 4,
       title: "React Native Notes App",
       shortDesc: "Mobile note-taking with Appwrite",
       description:
@@ -39,7 +68,7 @@ const Projects = () => {
       tags: ["React Native", "Appwrite", "Mobile", "Expo"],
     },
     {
-      id: 2,
+      id: 5,
       title: "Social Media App",
       shortDesc: "Real-time posts & interactive comments",
       description:
@@ -49,7 +78,7 @@ const Projects = () => {
       tags: ["React", "Node.js", "MongoDB", "Tailwind"],
     },
     {
-      id: 3,
+      id: 6,
       title: "Science Blog App",
       shortDesc: "Scientific articles & discussions",
       description:
@@ -59,7 +88,7 @@ const Projects = () => {
       tags: ["Next.js", "Node.js", "Express", "Tailwind"],
     },
     {
-      id: 4,
+      id: 7,
       title: "E-commerce AI",
       shortDesc: "AI-driven product recommendations",
       description:
@@ -69,14 +98,13 @@ const Projects = () => {
       tags: ["React", "Node.js", "AI", "Tailwind"],
     },
     {
-      id: 5,
+      id: 8,
       title: "Chat App Socket",
       shortDesc: "Real-time chat with Socket.IO",
       description:
         "A real-time chat application utilizing Socket.IO for seamless communication. Features user authentication, group chats, and private channels. Built with React, Node.js, and Express.",
       image: "/chatappphoto.png",
       repo: "https://github.com/turgutTM/Chat-App-Socket",
-      featured: true,
       tags: ["React", "Node.js", "Socket.IO", "Tailwind"],
     },
   ];
@@ -97,15 +125,12 @@ const Projects = () => {
         overflow-hidden
       "
     >
-      {/* Arkaplan yıldız efekti */}
       <div className="starry-bg absolute inset-0 opacity-60"></div>
       
-      {/* Animasyonlu arka plan daireleri */}
       <div className="absolute top-20 left-10 w-96 h-96 bg-purple-900/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-10 w-64 h-64 bg-blue-900/20 rounded-full blur-3xl"></div>
       
       <div className="max-w-6xl mx-auto flex flex-col items-center gap-16 relative z-10">
-        {/* Başlık bölümü */}
         <div className="flex flex-col items-center gap-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -146,7 +171,6 @@ const Projects = () => {
           </motion.div>
         </div>
 
-        {/* Öne çıkan proje */}
         {projects.filter(p => p.featured).map(project => (
           <motion.div
             key={project.id}
@@ -159,7 +183,7 @@ const Projects = () => {
             <div className="bg-gradient-to-br from-purple-900/30 to-indigo-900/30 backdrop-blur-sm p-6 rounded-2xl border border-purple-500/20 shadow-2xl">
               <div className="flex flex-col lg:flex-row gap-8">
                 <div className="relative w-full lg:w-3/5 overflow-hidden rounded-xl group">
-                  <Link href={project.repo} target="_blank">
+                  <Link href={project.link || project.repo} target="_blank">
                     <div className="relative h-72 lg:h-96 overflow-hidden rounded-xl">
                       {project.isVideo ? (
                         <video
@@ -203,7 +227,7 @@ const Projects = () => {
                   </div>
                   
                   <Link
-                    href={project.repo}
+                    href={project.link || project.repo}
                     target="_blank"
                     className="
                       bg-gradient-to-r
@@ -228,10 +252,21 @@ const Projects = () => {
                       md:w-auto
                     "
                   >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    GitHub Repo
+                    {project.link ? (
+                      <>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        Visit Live Site
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        GitHub Repo
+                      </>
+                    )}
                   </Link>
                 </div>
               </div>
@@ -239,7 +274,6 @@ const Projects = () => {
           </motion.div>
         ))}
 
-        {/* Diğer projeler grid */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
           variants={containerVariants}
@@ -256,7 +290,7 @@ const Projects = () => {
               onMouseLeave={() => setActiveProject(null)}
             >
               <div className="relative h-60">
-                <Link href={project.repo} target="_blank">
+                <Link href={project.link || project.repo} target="_blank">
                   {project.isVideo ? (
                     <video
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -300,7 +334,7 @@ const Projects = () => {
                 </div>
                 
                 <Link
-                  href={project.repo}
+                  href={project.link || project.repo}
                   target="_blank"
                   className="
                     inline-flex
@@ -321,17 +355,27 @@ const Projects = () => {
                     duration-300
                   "
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                  GitHub Repo
+                  {project.link ? (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                      </svg>
+                      Visit Site
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                      GitHub Repo
+                    </>
+                  )}
                 </Link>
               </div>
             </motion.div>
           ))}
         </motion.div>
         
-        {/* "Daha Fazla" butonu */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -339,7 +383,7 @@ const Projects = () => {
           viewport={{ once: true }}
           className="mt-8"
         >
-                        <Link href="https://github.com/turgutTM" target="_blank">
+          <Link href="https://github.com/turgutTM" target="_blank">
             <button
               className="
                 relative
@@ -379,7 +423,6 @@ const Projects = () => {
         </motion.div>
       </div>
       
-      {/* CSS için gerekli stil */}
       <style jsx>{`
         .starry-bg {
           background-image: radial-gradient(circle at 20% 35%, rgba(128, 78, 214, 0.08) 0%, transparent 20%),

@@ -4,13 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 const Skills = () => {
   const textList = [
     "Web Development",
-    "Mobile Development",
-    "UI/UX",
-    "Backend",
-
+    "Mobile Development", 
+    "UI/UX Design",
+    "Backend Development",
     "AI Integration",
-
     "Cybersecurity",
+    "DevOps",
+    "3D Design",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,175 +22,177 @@ const Skills = () => {
     return () => clearInterval(interval);
   }, [textList.length]);
 
+  const skills = [
+    {
+      title: "Frontend Development",
+      description: "Expert in React, Next.js, TypeScript, and modern CSS frameworks. Building responsive, high-performance web applications with clean architecture.",
+      icon: "💻",
+      gradient: "from-blue-500/20 to-cyan-500/20"
+    },
+    {
+      title: "Backend Development", 
+      description: "Proficient in Node.js, Express, MongoDB, and REST APIs. Creating scalable server-side solutions with proper authentication and security.",
+      icon: "⚙️",
+      gradient: "from-green-500/20 to-emerald-500/20"
+    },
+    {
+      title: "UI/UX Design",
+      description: "Creating intuitive user interfaces with modern design principles. Experienced with Figma, user research, and design systems.",
+      icon: "🎨",
+      gradient: "from-purple-500/20 to-pink-500/20"
+    },
+    {
+      title: "Mobile Development",
+      description: "Cross-platform mobile development with React Native. Building native-like experiences for iOS and Android with optimized performance.",
+      icon: "📱",
+      gradient: "from-orange-500/20 to-red-500/20"
+    },
+    {
+      title: "AI Integration",
+      description: "Implementing machine learning models and AI features. Experience with modern AI APIs and intelligent application development.",
+      icon: "🤖",
+      gradient: "from-indigo-500/20 to-purple-500/20"
+    },
+    {
+      title: "Cybersecurity",
+      description: "Web application security, vulnerability assessment, and best practices. Ensuring robust protection against modern security threats.",
+      icon: "🔒",
+      gradient: "from-gray-500/20 to-slate-500/20"
+    },
+    {
+      title: "DevOps & Docker",
+      description: "Containerization with Docker, CI/CD pipelines, and cloud deployment. Streamlining development workflows and production environments.",
+      icon: "🐳",
+      gradient: "from-cyan-500/20 to-blue-500/20"
+    },
+    {
+      title: "3D Design & Blender",
+      description: "3D modeling, animation, and rendering with Blender. Creating visual assets and interactive 3D experiences for web applications.",
+      icon: "🎯",
+      gradient: "from-yellow-500/20 to-orange-500/20"
+    }
+  ];
+
   return (
-    <div className="gradient-bg relative min-h-screen flex justify-center items-center px-10 py-20 text-white overflow-hidden">
-      <style jsx>{`
-        .gradient-bg {
-          background: linear-gradient(
-            -45deg,
-            #3b2274,
-            #9f5f80,
-            #114362,
-            #2d2b79
-          );
-          background-size: 400% 400%;
-          animation: gradient-animate 18s ease infinite;
-        }
-        @keyframes gradient-animate {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
-      <div className="relative w-full max-w-[1200px] mx-auto rounded-[3rem] bg-[#131212]/40 backdrop-blur-xl shadow-xl p-10 flex flex-col items-center border border-gray-800">
+    <div className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-black py-20 px-6 overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
+      
+      <div className="absolute top-10 left-10 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
+      
+      <div className="relative z-10 max-w-6xl mx-auto">
         <motion.div
-          className="mb-8 text-center"
-          initial={{ opacity: 0, y: -20 }}
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-5xl font-bold text-white">Skills</h2>
-          <div className="mt-2 h-12 flex justify-center items-center overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={textList[currentIndex]}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -40, opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="block text-2xl font-semibold text-purple-300"
-              >
-                {textList[currentIndex]}
-              </motion.span>
-            </AnimatePresence>
-          </div>
+          <motion.h2 
+            className="text-6xl font-bold mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              Skills &
+            </span>
+            <br />
+            <div className="h-16 flex justify-center items-center">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={textList[currentIndex]}
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -50, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
+                >
+                  {textList[currentIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </div>
+          </motion.h2>
+          
+          <motion.p
+            className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Building modern applications with cutting-edge technologies. 
+            From responsive web interfaces to scalable backend systems, 
+            I create solutions that combine performance, security, and exceptional user experience.
+          </motion.p>
         </motion.div>
+
         <motion.div
-          className="text-white max-w-[700px] mb-10 text-center px-4"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          {skills.map((skill, index) => (
+            <motion.div
+              key={skill.title}
+              className={`group relative bg-gradient-to-br ${skill.gradient} backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="absolute inset-0 bg-black/50 rounded-2xl"></div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-2xl">{skill.icon}</span>
+                  <h3 className="text-xl font-semibold text-white">
+                    {skill.title}
+                  </h3>
+                </div>
+                
+                <p className="text-gray-300 leading-relaxed text-sm">
+                  {skill.description}
+                </p>
+              </div>
+              
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-2xl"></div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
           viewport={{ once: true }}
         >
-          <p className="text-lg font-light leading-relaxed">
-            Proficient in a range of modern tools and frameworks, capable of
-            building robust and responsive web applications with a focus on
-            clean design and efficient performance. I have explored everything
-            from frontend libraries to mobile frameworks, always striving to
-            produce the best user experience. In addition to core development
-            work, I have delved into DevOps practices and cloud deployments.
-            Learning new technologies has become a core part of my daily
-            routine, helping me stay ahead in this ever-evolving field. If you
-            want to see more, feel free to check my
-            <span className="ml-1 text-purple-400">GitHub</span> or LinkedIn.
-          </p>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
+            <span className="text-gray-400">Want to see more?</span>
+            <a 
+              href="https://github.com/turgutTM" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-purple-400 hover:text-purple-300 font-semibold transition-colors"
+            >
+              Visit GitHub
+            </a>
+            <span className="text-gray-400">or</span>
+            <a 
+              href="https://www.linkedin.com/in/turgut-muradlı-9714522b1/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+            >
+              LinkedIn
+            </a>
+          </div>
         </motion.div>
-        <div className="flex flex-wrap gap-8 justify-center">
-          <motion.div
-            className="bg-[#2a2929]/80 w-[330px] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Frontend Development
-            </h3>
-            <p className="font-light text-gray-300 leading-relaxed">
-              Skilled in React, Next.js, and Angular. Experienced with Tailwind
-              CSS, Sass/SCSS, Redux, Context API, and API integration using
-              Axios, React Router, and Vite.
-            </p>
-          </motion.div>
-          <motion.div
-            className="bg-[#2a2929]/80 w-[330px] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Backend Development
-            </h3>
-            <p className="font-light text-gray-300 leading-relaxed">
-              While focused on frontend, I also have a solid understanding of
-              backend technologies including Node.js, Express, and database
-              management with MongoDB and SQL.
-            </p>
-          </motion.div>
-          <motion.div
-            className="bg-[#2a2929]/80 w-[330px] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-4">UI/UX Design</h3>
-            <p className="font-light text-gray-300 leading-relaxed">
-              Experienced in creating user-friendly interfaces with a focus on
-              simplicity and usability, using tools like Figma and Adobe XD.
-            </p>
-          </motion.div>
-          <motion.div
-            className="bg-[#2a2929]/80 w-[330px] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Mobile Development
-            </h3>
-            <p className="font-light text-gray-300 leading-relaxed">
-              Able to develop cross-platform mobile apps using React Native.
-              Familiar with using APIs, state management, and UI libraries to
-              deliver responsive, native-like experiences on both iOS and
-              Android.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="bg-[#2a2929]/80 w-[330px] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-4">
-              AI Integration
-            </h3>
-            <p className="font-light text-gray-300 leading-relaxed">
-              Integrating machine learning models and AI-driven features into
-              applications. Experienced with TensorFlow, PyTorch, and natural
-              language processing.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="bg-[#2a2929]/80 w-[330px] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Cybersecurity
-            </h3>
-            <p className="font-light text-gray-300 leading-relaxed">
-              Knowledgeable in securing web applications, performing
-              vulnerability assessments, and implementing best security
-              practices. Experienced with tools like OWASP, Metasploit, and
-              various encryption techniques.
-            </p>
-          </motion.div>
-        </div>
       </div>
     </div>
   );
