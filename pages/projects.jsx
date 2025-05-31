@@ -43,7 +43,7 @@ const Projects = () => {
       description:
         "Professional rehabilitation center website with modern design and responsive layout. Features appointment booking, service information, and contact forms.",
       image: "/rehabphoto.png",
-      link: "https://oncurehabilitasyon.com",
+      link: "https://ozeloncurehabilitasyon.com",
       tags: ["Next.js", "React", "Tailwind", "Responsive"],
     },
     {
