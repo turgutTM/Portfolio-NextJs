@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(null);
+  const [language, setLanguage] = useState('en');
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -24,13 +25,143 @@ const Projects = () => {
     },
   };
 
+  const translations = {
+    en: {
+      title: "Projects",
+      description: "The products of my passion for web and mobile application development. These projects are full-stack works that were entirely designed and developed by me.",
+      githubText: "For more, visit my",
+      githubLink: "GitHub",
+      profile: "profile.",
+      visitLiveSite: "Visit Live Site",
+      githubRepo: "GitHub Repo",
+      visitSite: "Visit Site",
+      moreProjects: "More Projects",
+      projects: [
+        {
+          title: "Pixel Room",
+          shortDesc: "Interactive portfolio showcase",
+          description: "An immersive 3D portfolio website featuring interactive animations, smooth transitions, and engaging visual effects. Showcases creative web development skills with modern design principles."
+        },
+        {
+          title: "Pixel Art Platform",
+          shortDesc: "Canvas-based pixel art creation",
+          description: "Canvas-based pixel art creation platform with social features, XP system, and monthly competitions. Built with Next.js 14, React, MongoDB, and HTML5 Canvas."
+        },
+        {
+          title: "Önce Rehabilitasyon",
+          shortDesc: "Professional rehabilitation center",
+          description: "Professional rehabilitation center website with modern design and responsive layout. Features appointment booking, service information, and contact forms."
+        },
+        {
+          title: "Kebapçı Kadir",
+          shortDesc: "Restaurant website with menu",
+          description: "Restaurant website with menu display, online ordering system and location information. Modern design with interactive features and mobile optimization."
+        },
+        {
+          title: "React Native Notes App",
+          shortDesc: "Mobile note-taking with Appwrite",
+          description: "A cross-platform mobile application for note-taking with real-time synchronization. Built with React Native and Appwrite for backend services, authentication, and storage."
+        },
+        {
+          title: "Social Media App",
+          shortDesc: "Real-time posts & interactive comments",
+          description: "A full-stack social media platform with user authentication, real-time posts, and interactive comments. Built using React, Node.js, and MongoDB."
+        },
+        {
+          title: "Science Blog App",
+          shortDesc: "Scientific articles & discussions",
+          description: "A platform dedicated to scientific articles and discussions, where users can explore, comment, and share insights. Implemented with Next.js, Node.js, and a responsive layout."
+        },
+        {
+          title: "E-commerce AI",
+          shortDesc: "AI-driven product recommendations",
+          description: "A modern e-commerce platform enhanced with AI-driven product recommendations. Built using React, Node.js, MongoDB, and integrated AI features to improve user experience."
+        },
+        {
+          title: "Chat App Socket",
+          shortDesc: "Real-time chat with Socket.IO",
+          description: "A real-time chat application utilizing Socket.IO for seamless communication. Features user authentication, group chats, and private channels. Built with React, Node.js, and Express."
+        }
+      ]
+    },
+    tr: {
+      title: "Projeler",
+      description: "Web ve mobil uygulama geliştirme tutkumun ürünleri. Bu projeler tamamen benim tarafımdan tasarlanmış ve geliştirilmiş full-stack çalışmalardır.",
+      githubText: "Daha fazlası için",
+      githubLink: "GitHub",
+      profile: "profilimi ziyaret edin.",
+      visitLiveSite: "Canlı Siteyi Ziyaret Et",
+      githubRepo: "GitHub Deposu",
+      visitSite: "Siteyi Ziyaret Et",
+      moreProjects: "Daha Fazla Proje",
+      projects: [
+        {
+          title: "Pixel Room",
+          shortDesc: "İnteraktif portfolyo vitrin",
+          description: "İnteraktif animasyonlar, yumuşak geçişler ve etkileyici görsel efektler içeren sürükleyici 3D portfolyo web sitesi. Modern tasarım ilkeleri ile yaratıcı web geliştirme becerilerini sergiler."
+        },
+        {
+          title: "Pixel Art Platform",
+          shortDesc: "Canvas tabanlı pixel sanat yaratımı",
+          description: "Sosyal özellikler, XP sistemi ve aylık yarışmalar içeren canvas tabanlı pixel sanat yaratım platformu. Next.js 14, React, MongoDB ve HTML5 Canvas ile geliştirildi."
+        },
+        {
+          title: "Önce Rehabilitasyon",
+          shortDesc: "Profesyonel rehabilitasyon merkezi",
+          description: "Modern tasarım ve duyarlı düzen ile profesyonel rehabilitasyon merkezi web sitesi. Randevu alma, hizmet bilgileri ve iletişim formları içerir."
+        },
+        {
+          title: "Kebapçı Kadir",
+          shortDesc: "Menülü restoran web sitesi",
+          description: "Menü gösterimi, online sipariş sistemi ve konum bilgileri içeren restoran web sitesi. İnteraktif özellikler ve mobil optimizasyon ile modern tasarım."
+        },
+        {
+          title: "React Native Notes App",
+          shortDesc: "Appwrite ile mobil not alma",
+          description: "Gerçek zamanlı senkronizasyon ile not alma için çapraz platform mobil uygulaması. Backend hizmetleri, kimlik doğrulama ve depolama için React Native ve Appwrite ile geliştirildi."
+        },
+        {
+          title: "Social Media App",
+          shortDesc: "Gerçek zamanlı gönderiler ve etkileşimli yorumlar",
+          description: "Kullanıcı kimlik doğrulama, gerçek zamanlı gönderiler ve etkileşimli yorumlar içeren tam yığın sosyal medya platformu. React, Node.js ve MongoDB kullanılarak geliştirildi."
+        },
+        {
+          title: "Science Blog App",
+          shortDesc: "Bilimsel makaleler ve tartışmalar",
+          description: "Kullanıcıların keşfedebileceği, yorum yapabileceği ve görüş paylaşabileceği bilimsel makalelere ve tartışmalara adanmış platform. Next.js, Node.js ve duyarlı düzen ile uygulandı."
+        },
+        {
+          title: "E-commerce AI",
+          shortDesc: "AI odaklı ürün önerileri",
+          description: "AI odaklı ürün önerileri ile geliştirilmiş modern e-ticaret platformu. Kullanıcı deneyimini iyileştirmek için React, Node.js, MongoDB ve entegre AI özellikleri kullanılarak geliştirildi."
+        },
+        {
+          title: "Chat App Socket",
+          shortDesc: "Socket.IO ile gerçek zamanlı sohbet",
+          description: "Sorunsuz iletişim için Socket.IO kullanan gerçek zamanlı sohbet uygulaması. Kullanıcı kimlik doğrulama, grup sohbetleri ve özel kanallar içerir. React, Node.js ve Express ile geliştirildi."
+        }
+      ]
+    }
+  };
+
+  const t = translations[language];
+
   const projects = [
     {
+      id: 0,
+      title: t.projects[0].title,
+      shortDesc: t.projects[0].shortDesc,
+      description: t.projects[0].description,
+      image: "/pixelroom.png",
+      link: "https://pixelroom.vercel.app",
+      tags: ["Next.js", "React", "Three.js", "Framer Motion"],
+      featured: true,
+    },
+    {
       id: 1,
-      title: "Pixel Art Platform",
-      shortDesc: "Canvas-based pixel art creation",
-      description:
-        "Canvas-based pixel art creation platform with social features, XP system, and monthly competitions. Built with Next.js 14, React, MongoDB, and HTML5 Canvas.",
+      title: t.projects[1].title,
+      shortDesc: t.projects[1].shortDesc,
+      description: t.projects[1].description,
       image: "/pixelphoto.png",
       link: "https://pixeltugu.vercel.app",
       tags: ["Next.js", "React", "MongoDB", "Canvas"],
@@ -38,30 +169,27 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: "Önce Rehabilitasyon",
-      shortDesc: "Professional rehabilitation center",
-      description:
-        "Professional rehabilitation center website with modern design and responsive layout. Features appointment booking, service information, and contact forms.",
+      title: t.projects[2].title,
+      shortDesc: t.projects[2].shortDesc,
+      description: t.projects[2].description,
       image: "/rehabphoto.png",
       link: "https://ozeloncurehabilitasyon.com",
       tags: ["Next.js", "React", "Tailwind", "Responsive"],
     },
     {
       id: 3,
-      title: "Kebapçı Kadir",
-      shortDesc: "Restaurant website with menu",
-      description:
-        "Restaurant website with menu display, online ordering system and location information. Modern design with interactive features and mobile optimization.",
+      title: t.projects[3].title,
+      shortDesc: t.projects[3].shortDesc,
+      description: t.projects[3].description,
       image: "/kebapciphoto.png",
       link: "https://kebapcikadir.com.tr",
       tags: ["React", "Tailwind", "Responsive", "Mobile"],
     },
     {
       id: 4,
-      title: "React Native Notes App",
-      shortDesc: "Mobile note-taking with Appwrite",
-      description:
-        "A cross-platform mobile application for note-taking with real-time synchronization. Built with React Native and Appwrite for backend services, authentication, and storage.",
+      title: t.projects[4].title,
+      shortDesc: t.projects[4].shortDesc,
+      description: t.projects[4].description,
       image: "/notenative.mov",
       isVideo: true,
       repo: "https://github.com/turgutTM/Note-ReactNative",
@@ -69,40 +197,36 @@ const Projects = () => {
     },
     {
       id: 5,
-      title: "Social Media App",
-      shortDesc: "Real-time posts & interactive comments",
-      description:
-        "A full-stack social media platform with user authentication, real-time posts, and interactive comments. Built using React, Node.js, and MongoDB.",
+      title: t.projects[5].title,
+      shortDesc: t.projects[5].shortDesc,
+      description: t.projects[5].description,
       image: "/Socialmediaphoto.png",
       repo: "https://github.com/turgutTM/Social-Media-App",
       tags: ["React", "Node.js", "MongoDB", "Tailwind"],
     },
     {
       id: 6,
-      title: "Science Blog App",
-      shortDesc: "Scientific articles & discussions",
-      description:
-        "A platform dedicated to scientific articles and discussions, where users can explore, comment, and share insights. Implemented with Next.js, Node.js, and a responsive layout.",
+      title: t.projects[6].title,
+      shortDesc: t.projects[6].shortDesc,
+      description: t.projects[6].description,
       image: "/Scienceproject-photo.png",
       repo: "https://github.com/turgutTM/Science-Blog-App",
       tags: ["Next.js", "Node.js", "Express", "Tailwind"],
     },
     {
       id: 7,
-      title: "E-commerce AI",
-      shortDesc: "AI-driven product recommendations",
-      description:
-        "A modern e-commerce platform enhanced with AI-driven product recommendations. Built using React, Node.js, MongoDB, and integrated AI features to improve user experience.",
+      title: t.projects[7].title,
+      shortDesc: t.projects[7].shortDesc,
+      description: t.projects[7].description,
       image: "/e-commercephoto.png",
       repo: "https://github.com/turgutTM/E-commerce-AI",
       tags: ["React", "Node.js", "AI", "Tailwind"],
     },
     {
       id: 8,
-      title: "Chat App Socket",
-      shortDesc: "Real-time chat with Socket.IO",
-      description:
-        "A real-time chat application utilizing Socket.IO for seamless communication. Features user authentication, group chats, and private channels. Built with React, Node.js, and Express.",
+      title: t.projects[8].title,
+      shortDesc: t.projects[8].shortDesc,
+      description: t.projects[8].description,
       image: "/chatappphoto.png",
       repo: "https://github.com/turgutTM/Chat-App-Socket",
       tags: ["React", "Node.js", "Socket.IO", "Tailwind"],
@@ -125,6 +249,8 @@ const Projects = () => {
         overflow-hidden
       "
     >
+
+
       <div className="starry-bg absolute inset-0 opacity-60"></div>
       
       <div className="absolute top-20 left-10 w-96 h-96 bg-purple-900/20 rounded-full blur-3xl"></div>
@@ -140,7 +266,7 @@ const Projects = () => {
             className="inline-block relative"
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-500 text-6xl md:text-7xl font-bold">
-              Projects
+              {t.title}
             </span>
             <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"></div>
           </motion.div>
@@ -153,22 +279,54 @@ const Projects = () => {
             viewport={{ once: true }}
           >
             <p className="text-gray-300 text-lg">
-              The products of my passion for web and mobile application development.
-              These projects are full-stack works that were entirely designed and developed by me.
+              {t.description}
               <br className="hidden md:block" />
               <span className="text-purple-300 inline-block mt-2">
-                For more, visit my{" "}
+                {t.githubText}{" "}
                 <Link
                   href="https://github.com/turgutTM?tab=repositories"
                   target="_blank"
                   className="underline text-purple-400 hover:text-purple-300 font-semibold transition-colors"
                 >
-                  GitHub
+                  {t.githubLink}
                 </Link>{" "}
-                profile.
+                {t.profile}
               </span>
             </p>
           </motion.div>
+
+          {/* Language Toggle Button */}
+          <motion.button
+            onClick={() => setLanguage(language === 'en' ? 'tr' : 'en')}
+            className="
+              bg-gradient-to-r
+              from-purple-600
+              to-indigo-600
+              hover:from-purple-500
+              hover:to-indigo-500
+              px-6
+              py-2
+              rounded-full
+              text-white
+              font-bold
+              text-sm
+              transition-all
+              duration-300
+              shadow-lg
+              shadow-purple-500/30
+              border
+              border-purple-500/30
+              mt-4
+            "
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            {language === 'en' ? 'TR' : 'EN'}
+          </motion.button>
         </div>
 
         {projects.filter(p => p.featured).map(project => (
@@ -257,14 +415,14 @@ const Projects = () => {
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
-                        Visit Live Site
+                        {t.visitLiveSite}
                       </>
                     ) : (
                       <>
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
-                        GitHub Repo
+                        {t.githubRepo}
                       </>
                     )}
                   </Link>
@@ -360,14 +518,14 @@ const Projects = () => {
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                       </svg>
-                      Visit Site
+                      {t.visitSite}
                     </>
                   ) : (
                     <>
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                       </svg>
-                      GitHub Repo
+                      {t.githubRepo}
                     </>
                   )}
                 </Link>
@@ -406,7 +564,7 @@ const Projects = () => {
               "
             >
               <span className="relative z-10 flex items-center gap-2">
-                <span>More Projects</span>
+                <span>{t.moreProjects}</span>
                 <svg 
                   className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
                   fill="none" 
