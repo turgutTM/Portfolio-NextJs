@@ -36,6 +36,8 @@ const Projects = () => {
       githubRepo: "GitHub Repo",
       visitSite: "Visit Site",
       moreProjects: "More Projects",
+      underConstruction: "🚧 Site under construction — being fixed up",
+      goGithubInstead: "Go GitHub Instead",
       projects: [
         {
           title: "Pixel Room",
@@ -94,6 +96,8 @@ const Projects = () => {
       githubRepo: "GitHub Deposu",
       visitSite: "Siteyi Ziyaret Et",
       moreProjects: "Daha Fazla Proje",
+      underConstruction: "🚧 Site şu an yapım aşamasında — düzeltiliyor",
+      goGithubInstead: "Bunun Yerine GitHub'a Git",
       projects: [
         {
           title: "Pixel Room",
@@ -153,7 +157,7 @@ const Projects = () => {
       shortDesc: t.projects[0].shortDesc,
       description: t.projects[0].description,
       image: "/pixelroom.png",
-      link: "https://pixelroom.vercel.app",
+      link: "https://pixelroomtugu.vercel.app",
       tags: ["Next.js", "React", "Three.js", "Framer Motion"],
       featured: true,
     },
@@ -164,6 +168,8 @@ const Projects = () => {
       description: t.projects[1].description,
       image: "/pixelphoto.png",
       link: "https://pixeltugu.vercel.app",
+      repo: "https://github.com/turgutTM?tab=repositories",
+      underConstruction: true,
       tags: ["Next.js", "React", "MongoDB", "Canvas"],
       featured: true,
     },
@@ -238,9 +244,10 @@ const Projects = () => {
       id="projects"
       className="
         bg-gradient-to-b
-        from-black
-        via-[#070707]
-        to-[#131212]
+        from-black/85
+        via-[#070707]/80
+        to-[#131212]/85
+        backdrop-blur-[2px]
         py-24
         px-4
         md:px-6
@@ -338,8 +345,22 @@ const Projects = () => {
             transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <div className="bg-gradient-to-br from-purple-900/30 to-indigo-900/30 backdrop-blur-sm p-6 rounded-2xl border border-purple-500/20 shadow-2xl">
-              <div className="flex flex-col lg:flex-row gap-8">
+            <div
+              className="group/card relative bg-gradient-to-br from-purple-900/30 to-indigo-900/30 backdrop-blur-sm p-6 rounded-2xl border border-purple-500/20 shadow-2xl overflow-hidden transition-all duration-300 hover:border-purple-400/40"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty("--y", `${e.clientY - rect.top}px`);
+              }}
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(168,139,250,0.12), transparent 70%)",
+                }}
+              ></div>
+              <div className="relative flex flex-col lg:flex-row gap-8">
                 <div className="relative w-full lg:w-3/5 overflow-hidden rounded-xl group">
                   <Link href={project.link || project.repo} target="_blank">
                     <div className="relative h-72 lg:h-96 overflow-hidden rounded-xl">
@@ -361,6 +382,11 @@ const Projects = () => {
                         />
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80"></div>
+                      {project.underConstruction && (
+                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold bg-yellow-500/90 text-black shadow-lg">
+                          🚧 Under Construction
+                        </span>
+                      )}
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <h3 className="text-3xl font-bold text-white">{project.title}</h3>
@@ -368,11 +394,17 @@ const Projects = () => {
                     </div>
                   </Link>
                 </div>
-                
+
                 <div className="w-full lg:w-2/5 flex flex-col justify-center">
                   <h3 className="text-2xl font-bold mb-4 lg:hidden">{project.title}</h3>
-                  <p className="text-gray-300 text-lg leading-relaxed mb-6">{project.description}</p>
-                  
+                  <p className="text-gray-300 text-lg leading-relaxed mb-2">{project.description}</p>
+
+                  {project.underConstruction && (
+                    <p className="text-yellow-400/90 text-sm font-medium mb-4">
+                      {t.underConstruction}
+                    </p>
+                  )}
+
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map((tag, index) => (
                       <span
@@ -383,9 +415,9 @@ const Projects = () => {
                       </span>
                     ))}
                   </div>
-                  
+
                   <Link
-                    href={project.link || project.repo}
+                    href={project.underConstruction ? project.repo : (project.link || project.repo)}
                     target="_blank"
                     className="
                       bg-gradient-to-r
@@ -410,7 +442,14 @@ const Projects = () => {
                       md:w-auto
                     "
                   >
-                    {project.link ? (
+                    {project.underConstruction ? (
+                      <>
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        {t.goGithubInstead}
+                      </>
+                    ) : project.link ? (
                       <>
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -442,7 +481,7 @@ const Projects = () => {
           {projects.filter(p => !p.featured).map((project) => (
             <motion.div
               key={project.id}
-              className="bg-gradient-to-br from-gray-900/70 to-black/70 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 shadow-xl transform transition-all duration-300 hover:shadow-purple-500/10 hover:border-purple-500/30 group"
+              className="relative bg-gradient-to-br from-gray-900/70 to-black/70 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 shadow-xl transform transition-all duration-300 hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-1 group"
               variants={projectVariants}
               onMouseEnter={() => setActiveProject(project.id)}
               onMouseLeave={() => setActiveProject(null)}

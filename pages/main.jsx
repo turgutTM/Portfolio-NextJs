@@ -1,10 +1,18 @@
 import React from "react"
+import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import TypingEffect from "../pages/typingeffect"
 
+const AsteroidModel = dynamic(() => import("./AsteroidModel"), { ssr: false })
+
+const scrollToSection = (id) => {
+  const element = document.getElementById(id)
+  if (element) element.scrollIntoView({ behavior: "smooth" })
+}
+
 const Main = () => {
   return (
-    <div className="relative min-h-screen flex justify-center items-center px-6 py-20 text-white overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <div className="relative min-h-screen flex justify-center items-center px-6 py-20 text-white overflow-hidden bg-gradient-to-br from-gray-900/70 via-black/60 to-gray-900/70 backdrop-blur-[2px]">
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
       
       <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
@@ -58,10 +66,16 @@ const Main = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <button className="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-300">
+            <button
+              onClick={() => scrollToSection("projects")}
+              className="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-300"
+            >
               View My Work
             </button>
-            <button className="px-8 py-3 border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors duration-300">
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="px-8 py-3 border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors duration-300"
+            >
               Get in Touch
             </button>
           </motion.div>
@@ -86,36 +100,17 @@ const Main = () => {
           transition={{ duration: 1, delay: 0.5 }}
         >
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-full blur-xl"></div>
-            <motion.div
-              className="relative w-80 h-80 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center border border-white/10"
-              animate={{ 
-                rotate: [0, 360],
-              }}
-              transition={{ 
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            >
-              <motion.img
-                src="/asteroid.png"
-                alt="Profile"
-                className="w-48 h-48 object-cover rounded-full"
-                animate={{ 
-                  rotate: [0, -360],
-                }}
-                transition={{ 
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-            </motion.div>
-            
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-full blur-2xl"></div>
+            <div className="relative w-80 h-80 flex items-center justify-center">
+              <AsteroidModel />
+            </div>
+
             <div className="absolute -top-4 -left-4 w-4 h-4 bg-purple-400 rounded-full animate-bounce"></div>
             <div className="absolute -bottom-4 -right-4 w-3 h-3 bg-blue-400 rounded-full animate-bounce delay-1000"></div>
             <div className="absolute top-1/2 -right-8 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-gray-400 tracking-[0.2em] uppercase">
+              Drag to rotate
+            </span>
           </div>
         </motion.div>
       </div>

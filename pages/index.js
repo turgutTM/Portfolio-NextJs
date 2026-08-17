@@ -2,27 +2,33 @@ import Navbar from "./navbar";
 import Main from "./main";
 import Skills from "./skills";
 import Projects from "./projects";
+import Contact from "./contact";
+import SpaceBackground from "./SpaceBackground";
+import MeteorShower from "./MeteorShower";
+import IntroLoader from "./IntroLoader";
 
 export default function Home() {
   return (
-    <div>
-      <div className="relative min-h-screen bg-astronaut bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/55 z-10"></div>
-        <div className="relative z-20">
-          <Navbar />
+    <div className="relative bg-black">
+      <IntroLoader />
+      <SpaceBackground />
+      <MeteorShower />
 
-          <div id="main">
-            <Main />
-          </div>
+      <div className="relative z-10">
+        <Navbar />
+
+        <div id="main">
+          <Main />
         </div>
-        <div id="skills" className="relative z-10">
-          {" "}
+        <div id="skills">
           <Skills />
         </div>
-        
-      </div>
-      <div id="projects">
-        <Projects></Projects>
+        <div id="projects">
+          <Projects />
+        </div>
+        <div id="contact">
+          <Contact />
+        </div>
       </div>
     </div>
   );

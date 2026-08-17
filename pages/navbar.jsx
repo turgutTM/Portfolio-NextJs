@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
-    const sections = ["main", "skills", "projects"];
+    const sections = ["main", "skills", "projects", "contact"];
     const scrollPosition = window.scrollY + window.innerHeight / 2;
 
     for (const section of sections) {
@@ -110,6 +110,20 @@ const Navbar = () => {
           }}
         >
           Projects
+        </a>
+        <a
+          href="#contact"
+          className={`cursor-pointer hover:text-white/80 transition-colors ${
+            activeSection === "contact"
+              ? "text-[#f5f5f5] underline underline-offset-4 decoration-2"
+              : "text-gray-300"
+          }`}
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick("contact");
+          }}
+        >
+          Contact
         </a>
       </div>
 

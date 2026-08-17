@@ -74,7 +74,7 @@ const Skills = () => {
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-black py-20 px-6 overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-black/70 via-gray-900/60 to-black/70 backdrop-blur-[2px] py-20 px-6 overflow-hidden">
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
       
       <div className="absolute top-10 left-10 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"></div>
@@ -138,15 +138,27 @@ const Skills = () => {
           {skills.map((skill, index) => (
             <motion.div
               key={skill.title}
-              className={`group relative bg-gradient-to-br ${skill.gradient} backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300`}
+              className={`group relative bg-gradient-to-br ${skill.gradient} backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300 overflow-hidden`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty("--y", `${e.clientY - rect.top}px`);
+              }}
             >
               <div className="absolute inset-0 bg-black/50 rounded-2xl"></div>
-              
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(280px circle at var(--x, 50%) var(--y, 50%), rgba(168,139,250,0.18), transparent 70%)",
+                }}
+              ></div>
+
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">{skill.icon}</span>
