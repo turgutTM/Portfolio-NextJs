@@ -62,7 +62,7 @@ const Main = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          20-year-old full-stack developer with 2 years of experience building
+          22-year-old full-stack developer with 2 years of experience building
           modern applications with React, Next.js, and Node.js. Focused on
           clean, fast, and thoughtful user experiences.
         </motion.p>
