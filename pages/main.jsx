@@ -1,9 +1,6 @@
 import React from "react"
-import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import TypingEffect from "../pages/typingeffect"
-
-const AsteroidModel = dynamic(() => import("./AsteroidModel"), { ssr: false })
 
 const scrollToSection = (id) => {
   const element = document.getElementById(id)
@@ -12,108 +9,102 @@ const scrollToSection = (id) => {
 
 const Main = () => {
   return (
-    <div className="relative min-h-screen flex justify-center items-center px-6 py-20 text-white overflow-hidden bg-gradient-to-br from-gray-900/70 via-black/60 to-gray-900/70 backdrop-blur-[2px]">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-      
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      
-      <div className="relative z-10 w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <motion.div
-          className="space-y-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <span className="inline-block px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-medium text-gray-300 backdrop-blur-sm">
-              👋 Welcome to my portfolio
-            </span>
-          </motion.div>
-          
-          <motion.h1
-            className="text-5xl lg:text-6xl font-bold leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Hi! I am{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              Turgut
-            </span>
-            <br />
-            <TypingEffect />
-          </motion.h1>
-          
-          <motion.p
-            className="text-lg leading-relaxed text-gray-300 max-w-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            I am a 20-year-old full-stack developer with 2 years of experience in web development. 
-            I build modern applications using React, Next.js, and Node.js. 
-            Passionate about creating seamless user experiences and scalable solutions.
-          </motion.p>
-          
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <button
-              onClick={() => scrollToSection("projects")}
-              className="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-300"
-            >
-              View My Work
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="px-8 py-3 border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors duration-300"
-            >
-              Get in Touch
-            </button>
-          </motion.div>
-          
-          <motion.div
-            className="flex items-center gap-6 pt-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1 }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-400">Available for freelance</span>
-            </div>
-          </motion.div>
-        </motion.div>
-        
-        <motion.div
-          className="flex justify-center lg:justify-end"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-full blur-2xl"></div>
-            <div className="relative w-80 h-80 flex items-center justify-center">
-              <AsteroidModel />
-            </div>
+    <div className="relative min-h-screen flex flex-col justify-center px-6 md:px-10 pt-32 pb-20 bg-white text-black overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-[0.05] pointer-events-none"
+        style={{ backgroundImage: "url('/grid-dark.svg')" }}
+      />
 
-            <div className="absolute -top-4 -left-4 w-4 h-4 bg-purple-400 rounded-full animate-bounce"></div>
-            <div className="absolute -bottom-4 -right-4 w-3 h-3 bg-blue-400 rounded-full animate-bounce delay-1000"></div>
-            <div className="absolute top-1/2 -right-8 w-2 h-2 bg-white rounded-full animate-pulse"></div>
-            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-gray-400 tracking-[0.2em] uppercase">
-              Drag to rotate
-            </span>
-          </div>
+      <div className="relative z-10 w-full max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-2 mb-8"
+        >
+          <span className="w-2 h-2 rounded-full bg-black animate-pulse" />
+          <span className="text-sm font-medium tracking-wide text-black/60">
+            Available for freelance work
+          </span>
+        </motion.div>
+
+        <motion.h1
+          className="text-5xl sm:text-6xl lg:text-8xl font-black leading-[0.95] tracking-tight"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+        >
+          Hi, I&apos;m Turgut.
+          <br />
+          Building on the{" "}
+          <span className="inline-flex items-center gap-3 align-middle bg-black text-white rounded-full px-5 py-1 md:py-2">
+            web
+          </span>
+          <br />
+          &amp; beyond.
+        </motion.h1>
+
+        <motion.div
+          className="mt-8 h-8 flex items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <span className="text-lg md:text-xl font-semibold tracking-wide text-black/50 uppercase">
+            <TypingEffect />
+          </span>
+          <span className="w-[2px] h-5 bg-black ml-1 animate-pulse" />
+        </motion.div>
+
+        <motion.p
+          className="mt-6 text-lg leading-relaxed text-black/60 max-w-xl"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
+          20-year-old full-stack developer with 2 years of experience building
+          modern applications with React, Next.js, and Node.js. Focused on
+          clean, fast, and thoughtful user experiences.
+        </motion.p>
+
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 mt-10"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+        >
+          <button
+            onClick={() => scrollToSection("projects")}
+            className="px-8 py-3.5 bg-black text-white font-semibold rounded-full hover:bg-black/85 transition-colors duration-300"
+          >
+            View my work
+          </button>
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="px-8 py-3.5 border border-black/20 text-black font-semibold rounded-full hover:border-black hover:bg-black/5 transition-colors duration-300"
+          >
+            Get in touch
+          </button>
         </motion.div>
       </div>
+
+      <motion.div
+        className="hidden lg:block absolute right-10 xl:right-20 top-1/2 -translate-y-1/2"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.6 }}
+      >
+        <div className="relative w-56 h-56 xl:w-72 xl:h-72 flex items-center justify-center">
+          <div className="absolute inset-0 rounded-full border border-black/15" />
+          <div className="absolute inset-6 rounded-full border border-black/10 border-dashed" />
+          <div className="absolute inset-0 animate-spin-slow">
+            <span className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-black rounded-full" />
+          </div>
+          <span className="text-xs font-semibold tracking-[0.3em] uppercase text-black/40">
+            TM
+          </span>
+        </div>
+      </motion.div>
     </div>
   )
 }

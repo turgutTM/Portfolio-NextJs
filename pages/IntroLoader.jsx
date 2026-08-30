@@ -8,7 +8,7 @@ const letterVariants = {
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.08 * i, duration: 0.5, ease: "easeOut" },
+    transition: { delay: 0.06 * i, duration: 0.5, ease: "easeOut" },
   }),
 };
 
@@ -20,7 +20,7 @@ const IntroLoader = () => {
     const timer = setTimeout(() => {
       setShow(false);
       document.body.style.overflow = "";
-    }, 2000);
+    }, 1600);
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = "";
@@ -35,8 +35,7 @@ const IntroLoader = () => {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 0.2,
-            transition: { duration: 0.6, ease: "easeInOut" },
+            transition: { duration: 0.5, ease: "easeInOut" },
           }}
         >
           <div className="flex overflow-hidden">
@@ -47,22 +46,18 @@ const IntroLoader = () => {
                 variants={letterVariants}
                 initial="hidden"
                 animate="visible"
-                className="text-2xl md:text-2xl font-extrabold tracking-[0.3em] bg-gradient-to-r from-white via-purple-200 to-blue-300 bg-clip-text text-transparent"
+                className="text-3xl md:text-4xl font-extrabold tracking-[0.3em] text-white"
               >
                 {char}
               </motion.span>
             ))}
           </div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-xs md:text-sm tracking-[0.4em] uppercase text-gray-400"
-          >
-          </motion.p>
-
-         
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 0.5, duration: 0.6, ease: "easeInOut" }}
+            className="h-px w-16 bg-white origin-left"
+          />
         </motion.div>
       )}
     </AnimatePresence>

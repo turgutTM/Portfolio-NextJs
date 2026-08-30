@@ -7,25 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "astronaut": "url('/dark.webp')",
-        "asteroid": "url('/images/asteroid.png')",
-      },
       fontFamily: {
-        fjalla: ['"Fjalla One"', 'sans-serif'],
-        montserrat: ['Montserrat', 'sans-serif'],
-        exo: ['"Exo 2"', 'sans-serif'],
+        sans: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
       },
       animation: {
-        'move-up-down': 'moveUpDown 5s linear infinite',
+        "move-up-down": "moveUpDown 5s ease-in-out infinite",
+        "spin-slow": "spin 12s linear infinite",
       },
       keyframes: {
         moveUpDown: {
-          '0%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
-          '100%': { transform: 'translateY(0)' },
+          "0%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-16px)" },
+          "100%": { transform: "translateY(0)" },
         },
       },
     },

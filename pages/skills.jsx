@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const Skills = () => {
   const textList = [
     "Web Development",
-    "Mobile Development", 
+    "Mobile Development",
     "UI/UX Design",
     "Backend Development",
     "AI Integration",
@@ -18,192 +18,145 @@ const Skills = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % textList.length);
-    }, 3000);
+    }, 2600);
     return () => clearInterval(interval);
   }, [textList.length]);
 
   const skills = [
     {
       title: "Frontend Development",
-      description: "Expert in React, Next.js, TypeScript, and modern CSS frameworks. Building responsive, high-performance web applications with clean architecture.",
-      icon: "💻",
-      gradient: "from-blue-500/20 to-cyan-500/20"
+      description:
+        "Expert in React, Next.js, TypeScript, and modern CSS frameworks. Building responsive, high-performance web applications with clean architecture.",
+      tag: "01",
     },
     {
-      title: "Backend Development", 
-      description: "Proficient in Node.js, Express, MongoDB, and REST APIs. Creating scalable server-side solutions with proper authentication and security.",
-      icon: "⚙️",
-      gradient: "from-green-500/20 to-emerald-500/20"
+      title: "Backend Development",
+      description:
+        "Proficient in Node.js, Express, MongoDB, and REST APIs. Creating scalable server-side solutions with proper authentication and security.",
+      tag: "02",
     },
     {
       title: "UI/UX Design",
-      description: "Creating intuitive user interfaces with modern design principles. Experienced with Figma, user research, and design systems.",
-      icon: "🎨",
-      gradient: "from-purple-500/20 to-pink-500/20"
+      description:
+        "Creating intuitive user interfaces with modern design principles. Experienced with Figma, user research, and design systems.",
+      tag: "03",
     },
     {
       title: "Mobile Development",
-      description: "Cross-platform mobile development with React Native. Building native-like experiences for iOS and Android with optimized performance.",
-      icon: "📱",
-      gradient: "from-orange-500/20 to-red-500/20"
+      description:
+        "Cross-platform mobile development with React Native. Building native-like experiences for iOS and Android with optimized performance.",
+      tag: "04",
     },
     {
       title: "AI Integration",
-      description: "Implementing machine learning models and AI features. Experience with modern AI APIs and intelligent application development.",
-      icon: "🤖",
-      gradient: "from-indigo-500/20 to-purple-500/20"
+      description:
+        "Implementing machine learning models and AI features. Experience with modern AI APIs and intelligent application development.",
+      tag: "05",
     },
     {
       title: "Cybersecurity",
-      description: "Web application security, vulnerability assessment, and best practices. Ensuring robust protection against modern security threats.",
-      icon: "🔒",
-      gradient: "from-gray-500/20 to-slate-500/20"
+      description:
+        "Web application security, vulnerability assessment, and best practices. Ensuring robust protection against modern security threats.",
+      tag: "06",
     },
     {
       title: "DevOps & Docker",
-      description: "Containerization with Docker, CI/CD pipelines, and cloud deployment. Streamlining development workflows and production environments.",
-      icon: "🐳",
-      gradient: "from-cyan-500/20 to-blue-500/20"
+      description:
+        "Containerization with Docker, CI/CD pipelines, and cloud deployment. Streamlining development workflows and production environments.",
+      tag: "07",
     },
     {
       title: "3D Design & Blender",
-      description: "3D modeling, animation, and rendering with Blender. Creating visual assets and interactive 3D experiences for web applications.",
-      icon: "🎯",
-      gradient: "from-yellow-500/20 to-orange-500/20"
-    }
+      description:
+        "3D modeling, animation, and rendering with Blender. Creating visual assets and interactive 3D experiences for web applications.",
+      tag: "08",
+    },
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-black/70 via-gray-900/60 to-black/70 backdrop-blur-[2px] py-20 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
-      
-      <div className="absolute top-10 left-10 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
-      
-      <div className="relative z-10 max-w-6xl mx-auto">
+    <div className="relative bg-white text-black py-24 md:py-32 px-6 md:px-10 border-t border-black/10">
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          <motion.h2 
-            className="text-6xl font-bold mb-6"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Skills &
-            </span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+            Skills &amp;
             <br />
-            <div className="h-16 flex justify-center items-center">
+            <span className="inline-block h-[1.15em] overflow-hidden align-bottom">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={textList[currentIndex]}
-                  initial={{ y: 50, opacity: 0 }}
+                  initial={{ y: 40, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -50, opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
+                  exit={{ y: -40, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="inline-block bg-black text-white rounded-full px-5 py-1 md:py-2"
                 >
                   {textList[currentIndex]}
                 </motion.span>
               </AnimatePresence>
-            </div>
-          </motion.h2>
-          
-          <motion.p
-            className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Building modern applications with cutting-edge technologies. 
-            From responsive web interfaces to scalable backend systems, 
-            I create solutions that combine performance, security, and exceptional user experience.
-          </motion.p>
+            </span>
+          </h2>
+
+          <p className="mt-6 text-black/50 text-lg max-w-2xl leading-relaxed">
+            Building modern applications with cutting-edge technologies —
+            from responsive interfaces to scalable backend systems, combining
+            performance, security, and exceptional user experience.
+          </p>
         </motion.div>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 border-t border-l border-black/10">
           {skills.map((skill, index) => (
             <motion.div
               key={skill.title}
-              className={`group relative bg-gradient-to-br ${skill.gradient} backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300 overflow-hidden`}
-              initial={{ opacity: 0, y: 30 }}
+              className="group relative p-7 border-r border-b border-black/10 hover:bg-black transition-colors duration-300"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: (index % 4) * 0.06 }}
               viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);
-                e.currentTarget.style.setProperty("--y", `${e.clientY - rect.top}px`);
-              }}
             >
-              <div className="absolute inset-0 bg-black/50 rounded-2xl"></div>
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(280px circle at var(--x, 50%) var(--y, 50%), rgba(168,139,250,0.18), transparent 70%)",
-                }}
-              ></div>
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl">{skill.icon}</span>
-                  <h3 className="text-xl font-semibold text-white">
-                    {skill.title}
-                  </h3>
-                </div>
-                
-                <p className="text-gray-300 leading-relaxed text-sm">
-                  {skill.description}
-                </p>
-              </div>
-              
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-2xl"></div>
+              <span className="text-xs font-semibold tracking-[0.2em] text-black/30 group-hover:text-white/40 transition-colors">
+                {skill.tag}
+              </span>
+              <h3 className="mt-4 text-lg font-bold text-black group-hover:text-white transition-colors">
+                {skill.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-black/55 group-hover:text-white/70 transition-colors">
+                {skill.description}
+              </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
+          className="flex flex-wrap items-center gap-3 mt-14"
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
-            <span className="text-gray-400">Want to see more?</span>
-            <a 
-              href="https://github.com/turgutTM" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-purple-400 hover:text-purple-300 font-semibold transition-colors"
-            >
-              Visit GitHub
-            </a>
-            <span className="text-gray-400">or</span>
-            <a 
-              href="https://www.linkedin.com/in/turgut-muradlı-9714522b1/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
-            >
-              LinkedIn
-            </a>
-          </div>
+          <span className="text-black/50">Want to see more?</span>
+          <a
+            href="https://github.com/turgutTM"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 font-semibold hover:text-black/60 transition-colors"
+          >
+            GitHub
+          </a>
+          <span className="text-black/30">/</span>
+          <a
+            href="https://www.linkedin.com/in/turgut-muradlı-9714522b1/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 font-semibold hover:text-black/60 transition-colors"
+          >
+            LinkedIn
+          </a>
         </motion.div>
       </div>
     </div>
