@@ -1,29 +1,15 @@
-import Navbar from "./navbar";
-import Main from "./main";
-import Skills from "./skills";
-import Projects from "./projects";
-import Contact from "./contact";
-import IntroLoader from "./IntroLoader";
+import Head from "next/head";
+import Room from "../components/Room/Room";
 
 export default function Home() {
   return (
-    <div className="relative bg-white text-black">
-      <IntroLoader />
-
-      <Navbar />
-
-      <div id="main">
-        <Main />
-      </div>
-      <div id="skills">
-        <Skills />
-      </div>
-      <div id="projects">
-        <Projects />
-      </div>
-      <div id="contact">
-        <Contact />
-      </div>
-    </div>
+    <>
+      <Head>
+        <title>Turgut Muradlı — Full-stack developer</title>
+        <meta name="description" content="Full-stack developer building modern web and mobile apps with React, Next.js and Node.js." />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </Head>
+      <Room />
+    </>
   );
 }
