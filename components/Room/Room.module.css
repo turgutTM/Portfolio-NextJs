@@ -54,12 +54,14 @@
 }
 
 /* hotspots (positioned every frame by the scene) */
-.hot { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); border: 0; background: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: opacity .3s; }
+.hot { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); border: 0; background: none; padding: 0; cursor: pointer; display: flex; transition: opacity .3s; }
 .d { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; animation: ping 2.2s infinite; flex: none; }
 .l { font-weight: 800; font-size: 13px; padding: 6px 11px; border-radius: 999px; background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(var(--ink-rgb), .12); white-space: nowrap; opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s; }
-.hot:hover .l, .hot:focus-visible .l, .hot[data-lit="1"] .l { opacity: 1; transform: none; }
-@media (hover: none) { .l { opacity: 1; transform: none; } }
+  border: 1px solid rgba(var(--ink-rgb), .12); white-space: nowrap; opacity: 0; transform: translate(-4px, -50%); transition: opacity .2s, transform .2s;
+  /* sits outside the button's box so the hidden label never steals hover from objects behind it */
+  position: absolute; left: calc(100% + 8px); top: 50%; pointer-events: none; }
+.hot:hover .l, .hot:focus-visible .l, .hot[data-lit="1"] .l { opacity: 1; transform: translateY(-50%); }
+@media (hover: none) { .l { opacity: 1; transform: translateY(-50%); pointer-events: auto; } }
 .root[data-focused="true"] .hot { opacity: 0; pointer-events: none; }
 
 .hint { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); font-size: 13px; font-weight: 700;

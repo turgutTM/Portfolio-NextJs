@@ -8,7 +8,7 @@ const syne = Syne({ subsets: ["latin", "latin-ext"], weight: ["700", "800"], var
 const manrope = Manrope({ subsets: ["latin", "latin-ext"], weight: ["400", "500", "700", "800"], variable: "--font-manrope" });
 
 const NP = META.length;
-const HOTS = ["about", "skills", "projects", "contact", "pixel", "lamp"];
+const HOTS = ["about", "skills", "projects", "contact", "pixel", "lamp", "globe"];
 const pad = (n) => String(n).padStart(2, "0");
 
 const Arrow = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path d="M7 17L17 7M8 7h9v9" /></svg>);
@@ -159,6 +159,16 @@ export default function Room() {
         </>
       );
     }
+    if (focus === "globe") return (
+      <>
+        <span className={s.status}><i />{t.status}</span>
+        <h2>{t.pin}</h2>
+        <p className={s.sub}>{t.globeText}</p>
+        <div className={s.btns}>
+          <button className={s.btn} onClick={() => setFocus("contact")}>{t.getInTouch}</button>
+        </div>
+      </>
+    );
     if (focus === "contact") return (
       <>
         <h2>{t.contactTitle}</h2>

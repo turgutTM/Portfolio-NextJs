@@ -3,9 +3,9 @@
 export const I = {
   en:{role:"Full-stack developer, available for freelance work", hint:"Drag to look around. Click anything in the room.", back:"Back to room",
     nav:{about:"About",skills:"Skills",projects:"Projects",contact:"Contact"},
-    tips:{about:"About me",skills:"Skills",projects:"Projects",contact:"Contact",pixel:"Pixel Art Platform",lamp:"Switch the lamp"},
+    tips:{about:"About me",skills:"Skills",projects:"Projects",contact:"Contact",pixel:"Pixel Art Platform",lamp:"Switch the lamp",globe:"Where I'm based"}, pin:"Germany, Karlsruhe", globeText:"I live and work in Karlsruhe, Germany.",
     status:"Available for freelance work", aboutTitle:"Hi, I'm Turgut.",
-    aboutText:"22-year-old full-stack developer with 2 years of experience building modern applications with React, Next.js, and Node.js. Focused on clean, fast, and thoughtful user experiences.",
+    aboutText:"22-year-old full-stack developer with 4 years of experience building modern applications with React, Next.js, and Node.js. Focused on clean, fast, and thoughtful user experiences.",
     aboutText2:"This room is mine: the monitor holds my projects, the shelf my skills, and the phone is how to reach me.",
     seeProjects:"See projects", getInTouch:"Get in touch",
     skillsTitle:"Skills & tools", skillsSub:"Each book on the shelf is one area I work in. Pick one.",
@@ -14,7 +14,7 @@ export const I = {
     phone:["New message","Let's build something great together."]},
   tr:{role:"Full-stack geliştirici, freelance işlere açık", hint:"Etrafa bakmak için sürükle. Odadaki herhangi bir şeye tıkla.", back:"Odaya dön",
     nav:{about:"Hakkımda",skills:"Yetenekler",projects:"Projeler",contact:"İletişim"},
-    tips:{about:"Hakkımda",skills:"Yetenekler",projects:"Projeler",contact:"İletişim",pixel:"Pixel Art Platform",lamp:"Lambayı aç/kapat"},
+    tips:{about:"Hakkımda",skills:"Yetenekler",projects:"Projeler",contact:"İletişim",pixel:"Pixel Art Platform",lamp:"Lambayı aç/kapat",globe:"Nerede yaşıyorum"}, pin:"Almanya, Karlsruhe", globeText:"Almanya'nın Karlsruhe şehrinde yaşıyor ve çalışıyorum.",
     status:"Freelance işlere açığım", aboutTitle:"Merhaba, ben Turgut.",
     aboutText:"React, Next.js ve Node.js ile modern uygulamalar geliştiren, 2 yıllık deneyime sahip 22 yaşında bir full-stack geliştiriciyim. Temiz, hızlı ve özenli kullanıcı deneyimlerine odaklanıyorum.",
     aboutText2:"Bu oda benim: monitörde projelerim, rafta yeteneklerim var, telefon da bana ulaşmanın yolu.",
@@ -26,21 +26,17 @@ export const I = {
 };
 
 export const SK = {
-  en:[["Frontend Development","Expert in React, Next.js, TypeScript, and modern CSS frameworks. Building responsive, high-performance web applications with clean architecture."],
-    ["Backend Development","Proficient in Node.js, Express, MongoDB, and REST APIs. Creating scalable server-side solutions with proper authentication and security."],
+  en:[["Full Stack Development","Building complete web applications end to end with React, Next.js, TypeScript, Node.js, Express, MongoDB, and REST APIs. Responsive, high-performance interfaces backed by scalable, secure server-side code."],
     ["UI/UX Design","Creating intuitive user interfaces with modern design principles. Experienced with Figma, user research, and design systems."],
     ["Mobile Development","Cross-platform mobile development with React Native. Building native-like experiences for iOS and Android with optimized performance."],
     ["AI Integration","Implementing machine learning models and AI features. Experience with modern AI APIs and intelligent application development."],
     ["Cybersecurity","Web application security, vulnerability assessment, and best practices. Ensuring robust protection against modern security threats."],
-    ["DevOps & Docker","Containerization with Docker, CI/CD pipelines, and cloud deployment. Streamlining development workflows and production environments."],
     ["3D Design & Blender","3D modeling, animation, and rendering with Blender. Creating visual assets and interactive 3D experiences for web applications."]],
-  tr:[["Frontend Geliştirme","React, Next.js, TypeScript ve modern CSS framework'lerinde uzman. Temiz mimariyle duyarlı, yüksek performanslı web uygulamaları geliştiriyorum."],
-    ["Backend Geliştirme","Node.js, Express, MongoDB ve REST API'lerde yetkin. Doğru kimlik doğrulama ve güvenlikle ölçeklenebilir sunucu tarafı çözümler üretiyorum."],
+  tr:[["Full Stack Geliştirme","React, Next.js, TypeScript, Node.js, Express, MongoDB ve REST API'lerle web uygulamalarını uçtan uca geliştiriyorum. Duyarlı, yüksek performanslı arayüzler ve ölçeklenebilir, güvenli sunucu tarafı."],
     ["UI/UX Tasarım","Modern tasarım ilkeleriyle sezgisel arayüzler tasarlıyorum. Figma, kullanıcı araştırması ve tasarım sistemleri deneyimim var."],
     ["Mobil Geliştirme","React Native ile çapraz platform mobil geliştirme. iOS ve Android için optimize, native hissi veren deneyimler."],
     ["AI Entegrasyonu","Makine öğrenmesi modelleri ve AI özellikleri entegre ediyorum. Modern AI API'leri ve akıllı uygulama geliştirme deneyimi."],
     ["Siber Güvenlik","Web uygulama güvenliği, zafiyet analizi ve en iyi pratikler. Modern tehditlere karşı sağlam koruma."],
-    ["DevOps & Docker","Docker ile konteynerleştirme, CI/CD hatları ve bulut dağıtımı. Geliştirme ve canlı ortam süreçlerini sadeleştiriyorum."],
     ["3D Tasarım & Blender","Blender ile 3D modelleme, animasyon ve render. Web uygulamaları için görsel varlıklar ve interaktif 3D deneyimler."]]
 };
 
@@ -78,4 +74,4 @@ export const META = [
   {image:"/chatappphoto.png",repo:"https://github.com/turgutTM/Chat-App-Socket",tags:["React","Node.js","Socket.IO","Tailwind"]}
 ];
 
-export const BOOK_COLORS = ["#2b3bff","#e9e2d0","#23252b","#5b6378","#7a2f36","#2f4a3a","#cdbf9f","#1c2238"];
+export const BOOK_COLORS = ["#2b3bff","#23252b","#5b6378","#7a2f36","#2f4a3a","#1c2238"];

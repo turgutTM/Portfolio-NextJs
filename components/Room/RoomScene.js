@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { META, PJ, SK, I, BOOK_COLORS } from "./content";
 
 /**
@@ -45,6 +46,8 @@ scene.add(lampLight);
 
 const room = new THREE.Group(); scene.add(room);
 const MATS = [];
+// materials that drive their own emissive glow, so the hover tint must leave them alone
+const ownGlow = new Set();
 const col = h => new THREE.Color(h).convertSRGBToLinear();
 function mat(c, o={}){ const m = new THREE.MeshStandardMaterial(Object.assign({color:col(c), roughness:.7, metalness:0}, o)); MATS.push(m); return m; }
 function tmat(map, o={}){ const m = new THREE.MeshStandardMaterial(Object.assign({map, roughness:.7, metalness:0}, o)); MATS.push(m); return m; }
@@ -123,7 +126,7 @@ function rugCanvas(){
   }
   g.putImageData(id,0,0); return c;
 }
-const SPINE_TITLES = ["FRONTEND","BACKEND","UI / UX","MOBILE","AI","SECURITY","DEVOPS","3D & BLENDER"];
+const SPINE_TITLES = ["FULL STACK","UI / UX","MOBILE","AI","SECURITY","3D & BLENDER"];
 function spineCanvas(bg, title, fg, deco){
   const [c,g] = cnv(128,512);
   g.fillStyle = bg; g.fillRect(0,0,128,512);
@@ -235,35 +238,56 @@ add(RB(.56,.04,.78,.01), mat("#f0ead9",{roughness:.9}), -.38,1.985,-4.55, desk).
 rod([-.2,2.03,-4.25],[.15,2.03,-4.55],.018,M.black,desk);
 // mug (lathe) + steam
 const mugPts = [[0,0],[.15,0],[.16,.02],[.17,.31],[.155,.31],[.145,.04],[0,.04]].map(p=>new THREE.Vector2(...p));
-const mug = add(new THREE.LatheGeometry(mugPts, 40), mat("#2b3bff",{roughness:.25,side:THREE.DoubleSide}), 2.35,1.96,-3.7, desk);
-add(new THREE.CircleGeometry(.145,32), mat("#3b2114",{roughness:.2}), 2.35,2.22,-3.7, desk, false).rotation.x = -Math.PI/2;
-{ const h = add(new THREE.TorusGeometry(.085,.022,10,24,Math.PI), mug.material, 2.52,2.12,-3.7, desk); h.rotation.z = -Math.PI/2; }
+// /models/mug.glb replaces the procedural mug, which stays as a fallback if the model fails to load
+const mugFallback = new THREE.Group(); mugFallback.visible = false; desk.add(mugFallback);
+new GLTFLoader().load("/models/mug.glb", gltf => {
+  if (disposed) return;
+  const m = gltf.scene; m.scale.setScalar(3.6);
+  // the model sits off-origin, so drop its base centre onto the old mug spot
+  const box = new THREE.Box3().setFromObject(m), c = box.getCenter(new THREE.Vector3());
+  m.position.set(2.35 - c.x, 1.96 - box.min.y, -3.7 - c.z);
+  m.traverse(o => { if (!o.isMesh) return; o.castShadow = o.receiveShadow = true;
+    MATS.push(...(Array.isArray(o.material) ? o.material : [o.material])); });
+  desk.add(m); desk.remove(mugFallback); applyMode();
+}, undefined, () => { mugFallback.visible = true; });
+const mug = add(new THREE.LatheGeometry(mugPts, 40), mat("#2b3bff",{roughness:.25,side:THREE.DoubleSide}), 2.35,1.96,-3.7, mugFallback);
+add(new THREE.CircleGeometry(.145,32), mat("#3b2114",{roughness:.2}), 2.35,2.22,-3.7, mugFallback, false).rotation.x = -Math.PI/2;
+{ const h = add(new THREE.TorusGeometry(.085,.022,10,24,Math.PI), mug.material, 2.52,2.12,-3.7, mugFallback); h.rotation.z = -Math.PI/2; }
 const steam = [];
 for (let i=0;i<3;i++){ const s = new THREE.Mesh(new THREE.SphereGeometry(.06,10,10), new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.5,depthWrite:false})); s.userData.o = i/3; desk.add(s); steam.push(s); }
 
 /* ---------- office chair ---------- */
-const chair = new THREE.Group(); chair.position.set(.6,0,-2.3); chair.rotation.y = .3; room.add(chair);
+const chair = new THREE.Group(); chair.position.set(.6,0,-2.65); chair.rotation.y = .3; room.add(chair);
+// /models/chair.glb replaces the procedural chair below, which stays as a fallback if the model fails to load
+const chairFallback = new THREE.Group(); chairFallback.visible = false; chair.add(chairFallback);
+new GLTFLoader().load("/models/chair.glb", gltf => {
+  if (disposed) return;
+  const m = gltf.scene; m.scale.setScalar(2.4); m.rotation.y = Math.PI;
+  m.traverse(o => { if (!o.isMesh) return; o.castShadow = o.receiveShadow = true;
+    MATS.push(...(Array.isArray(o.material) ? o.material : [o.material])); });
+  chair.add(m); applyMode(); chair.remove(chairFallback);
+}, undefined, () => { chairFallback.visible = true; });
 for (let i=0;i<5;i++){
-  const a = i/5*Math.PI*2, arm = new THREE.Group(); arm.rotation.y = a; chair.add(arm);
+  const a = i/5*Math.PI*2, arm = new THREE.Group(); arm.rotation.y = a; chairFallback.add(arm);
   const b = add(RB(.09,.07,.62,.03), M.plastic, 0,.2,.31, arm); b.rotation.x = -.12;
   rod([0,.18,.6],[0,.12,.62],.02,M.metal,arm);
   const w = add(new THREE.CylinderGeometry(.065,.065,.07,20), M.plastic, 0,.07,.62, arm); w.rotation.z = Math.PI/2;
 }
-add(new THREE.CylinderGeometry(.11,.13,.12,24), M.plastic, 0,.24,0, chair);
-add(new THREE.CylinderGeometry(.075,.075,.32,24), M.plastic, 0,.42,0, chair);
-add(new THREE.CylinderGeometry(.05,.05,.38,24), M.chrome, 0,.74,0, chair);
-add(RB(.55,.08,.55,.02), M.plastic, 0,.94,0, chair);
-add(RB(1.2,.2,1.15,.09,4), M.fabric, 0,1.08,0, chair);
+add(new THREE.CylinderGeometry(.11,.13,.12,24), M.plastic, 0,.24,0, chairFallback);
+add(new THREE.CylinderGeometry(.075,.075,.32,24), M.plastic, 0,.42,0, chairFallback);
+add(new THREE.CylinderGeometry(.05,.05,.38,24), M.chrome, 0,.74,0, chairFallback);
+add(RB(.55,.08,.55,.02), M.plastic, 0,.94,0, chairFallback);
+add(RB(1.2,.2,1.15,.09,4), M.fabric, 0,1.08,0, chairFallback);
 // curved mesh backrest
 { const geo = new THREE.BoxGeometry(1.12,1.3,.1,20,10,1); const p = geo.attributes.position;
   for (let i=0;i<p.count;i++){ const x = p.getX(i), y = p.getY(i); p.setZ(i, p.getZ(i) - .32*x*x + .06*Math.cos(y*2.2)); }
   geo.computeVertexNormals();
-  const back = add(geo, M.meshF, 0,1.95,.6, chair); back.rotation.x = -.12;
-  const frame = add(new THREE.TorusGeometry(.62,.025,8,40), M.plastic, 0,1.95,.63, chair); frame.scale.set(.92,1.07,1); frame.rotation.x = -.12; }
-rod([0,1.02,.45],[0,1.35,.62],.045,M.plastic,chair);
+  const back = add(geo, M.meshF, 0,1.95,.6, chairFallback); back.rotation.x = -.12;
+  const frame = add(new THREE.TorusGeometry(.62,.025,8,40), M.plastic, 0,1.95,.63, chairFallback); frame.scale.set(.92,1.07,1); frame.rotation.x = -.12; }
+rod([0,1.02,.45],[0,1.35,.62],.045,M.plastic,chairFallback);
 for (const s of [-1,1]){
-  rod([s*.5,1.12,.12],[s*.62,1.5,.12],.035,M.plastic,chair);
-  add(RB(.14,.06,.52,.03), M.plastic, s*.62,1.53,.08, chair);
+  rod([s*.5,1.12,.12],[s*.62,1.5,.12],.035,M.plastic,chairFallback);
+  add(RB(.14,.06,.52,.03), M.plastic, s*.62,1.53,.08, chairFallback);
 }
 
 /* ---------- plant (fiddle-leaf) ---------- */
@@ -302,14 +326,31 @@ phoneHit.position.set(-.75,2.15,-3.55); gC.add(phoneHit);
 
 /* ---------- architect lamp ---------- */
 const gL = G("lamp");
-add(new THREE.LatheGeometry([[0,0],[.27,0],[.28,.02],[.22,.07],[0,.08]].map(p=>new THREE.Vector2(...p)),32), M.cobalt, -1.55,1.96,-4.45, gL);
+// /models/lamp.glb replaces the procedural lamp below, which stays as a fallback if the model fails to load
+const lampFallback = new THREE.Group(); lampFallback.visible = false; gL.add(lampFallback);
+const lampBulbMats = [];
+new GLTFLoader().load("/models/lamp.glb", gltf => {
+  if (disposed) return;
+  const m = gltf.scene; m.scale.setScalar(2.8); m.rotation.y = -1.17; m.position.set(-1.55,1.96,-4.45);
+  m.traverse(o => { if (!o.isMesh) return;
+    // head parts surround the point light, so they must not block its shadows
+    o.castShadow = !/^(Abajur|Ampul|Duy)/.test(o.name); o.receiveShadow = true;
+    for (const mm of Array.isArray(o.material) ? o.material : [o.material]){
+      MATS.push(mm);
+      if (mm.name === "Ampul"){ mm.userData.on = mm.emissiveIntensity; lampBulbMats.push(mm); ownGlow.add(mm); }
+    } });
+  gL.add(m); gL.remove(lampFallback);
+  lampLight.position.set(-1.3,2.82,-3.83);
+  applyMode();
+}, undefined, () => { lampFallback.visible = true; });
+add(new THREE.LatheGeometry([[0,0],[.27,0],[.28,.02],[.22,.07],[0,.08]].map(p=>new THREE.Vector2(...p)),32), M.cobalt, -1.55,1.96,-4.45, lampFallback);
 const J1 = [-1.55,2.06,-4.45], J2 = [-1.62,2.95,-4.62], J3 = [-1.38,3.22,-4.05];
-rod(J1,J2,.028,M.metal,gL); rod(J2,J3,.028,M.metal,gL);
-for (const j of [J1,J2]) add(new THREE.SphereGeometry(.05,16,12), M.metal, ...j, gL);
-const shade = add(new THREE.LatheGeometry([[.05,0],[.07,.05],[.12,.12],[.24,.32],[.25,.34]].map(p=>new THREE.Vector2(...p)),32), mat("#2b3bff",{roughness:.3,metalness:.4,side:THREE.DoubleSide}), ...J3, gL);
+rod(J1,J2,.028,M.metal,lampFallback); rod(J2,J3,.028,M.metal,lampFallback);
+for (const j of [J1,J2]) add(new THREE.SphereGeometry(.05,16,12), M.metal, ...j, lampFallback);
+const shade = add(new THREE.LatheGeometry([[.05,0],[.07,.05],[.12,.12],[.24,.32],[.25,.34]].map(p=>new THREE.Vector2(...p)),32), mat("#2b3bff",{roughness:.3,metalness:.4,side:THREE.DoubleSide}), ...J3, lampFallback);
 shade.rotation.x = Math.PI - .55;
 const bulb = new THREE.Mesh(new THREE.SphereGeometry(.09,16,16), new THREE.MeshBasicMaterial({color:0xfff1d6, toneMapped:false}));
-bulb.position.set(-1.38,3.04,-3.93); gL.add(bulb);
+bulb.position.set(-1.38,3.04,-3.93); lampFallback.add(bulb);
 lampLight.position.set(-1.33,2.88,-3.8);
 let lampOn = true;
 
@@ -328,7 +369,7 @@ const pagesTex = ctex(pagesCanvas());
 const pagesM = tmat(pagesTex,{roughness:.9});
 let zc = [-3.25,-3.25];
 BOOK_COLORS.forEach((c,i) => {
-  const shelf = i < 4 ? 0 : 1, y0 = shelf === 0 ? 1.285 : 2.485, h = BH[i], t = BT[i];
+  const shelf = i < 3 ? 0 : 1, y0 = shelf === 0 ? 1.285 : 2.485, h = BH[i], t = BT[i];
   const z = zc[shelf] + t/2; zc[shelf] += t + .04;
   const light = ["#e9e2d0","#cdbf9f"].includes(c);
   const spine = tmat(ctex(spineCanvas(c, SPINE_TITLES[i], light ? "#1c2238" : "#e9d9a6", i)),{roughness:.6});
@@ -346,10 +387,44 @@ BOOK_COLORS.forEach((c,i) => {
 // globe + vase on the top shelf
 const globeCanvas = (() => { const [c,g] = cnv(512,256); g.fillStyle = "#2b3bff"; g.fillRect(0,0,512,256);
   g.fillStyle = "#e9e2d0"; for (let i=0;i<26;i++){ g.beginPath(); g.ellipse(rnd()*512, 40+rnd()*176, 20+rnd()*50, 10+rnd()*30, rnd()*3, 0, 7); g.fill(); } return c; })();
-const trophy = add(new THREE.SphereGeometry(.26,32,24), tmat(ctex(globeCanvas),{roughness:.4}), SX,4.08,-2.6, gS);
+/* globe = click to light up Germany. /models/globe.glb replaces the procedural globe, which stays as a fallback */
+const gG = G("globe");
+const globeFallback = new THREE.Group(); globeFallback.visible = false; gG.add(globeFallback);
+const globe = { kure:null, q0:new THREE.Quaternion(), axis:new THREE.Vector3(), spin:0, on:false, glow:0, mats:[] };
+new GLTFLoader().load("/models/globe.glb", gltf => {
+  if (disposed) return;
+  // the model's base sits at (.42, 0, .22); the wrapper puts it on the shelf, turned so Germany faces the default camera
+  const w = new THREE.Group(); w.position.set(SX,3.69,-2.6); w.scale.setScalar(2.4); w.rotation.y = .33;
+  const m = gltf.scene; m.position.set(-.42,0,-.22); w.add(m);
+  m.traverse(o => { if (!o.isMesh) return; o.castShadow = o.receiveShadow = true;
+    for (const mm of Array.isArray(o.material) ? o.material : [o.material]){
+      MATS.push(mm);
+      if (/Parlak$/.test(mm.name) && !globe.mats.includes(mm)){ mm.userData.on = mm.emissiveIntensity || 1; mm.emissiveIntensity = 0; globe.mats.push(mm); ownGlow.add(mm); }
+    } });
+  globe.kure = m.getObjectByName("Globus_Kure");
+  const txt = m.getObjectByName("Germany_Yazi"); if (txt) txt.visible = false;
+  const mark = m.getObjectByName("Almanya_Isaret");
+  if (globe.kure && mark){
+    // just outside the sphere along the marker's direction, nudged up so it clears the pin
+    pin.position.copy(mark.position).normalize().multiplyScalar(.17); pin.position.y += .03;
+    globe.kure.add(pin);
+  }
+  const n = m.getObjectByName("Kutup_Kuzey"), sP = m.getObjectByName("Kutup_Guney");
+  if (globe.kure){
+    globe.q0.copy(globe.kure.quaternion);
+    globe.axis.copy(n && sP ? n.position.clone().sub(sP.position) : new THREE.Vector3(0,1,0)).normalize();
+  }
+  gG.add(w); gG.remove(globeFallback); applyMode();
+}, undefined, () => { globeFallback.visible = true; });
+// "Germany, Karlsruhe" tag next to the marker, replacing the model's own Germany text
+const pinCanvas = document.createElement("canvas"); pinCanvas.width = 640; pinCanvas.height = 128;
+const pinTex = ctex(pinCanvas);
+const pin = new THREE.Sprite(new THREE.SpriteMaterial({map:pinTex, transparent:true, depthTest:false, toneMapped:false, opacity:0}));
+pin.renderOrder = 10; pin.visible = false;
+const trophy = add(new THREE.SphereGeometry(.26,32,24), tmat(ctex(globeCanvas),{roughness:.4}), SX,4.08,-2.6, globeFallback);
 trophy.rotation.z = .4;
-add(new THREE.TorusGeometry(.3,.012,8,40,Math.PI), M.alu, SX,4.08,-2.6, gS).rotation.set(0,Math.PI/2,.4);
-add(new THREE.CylinderGeometry(.1,.14,.08,24), M.alu, SX,3.73,-2.6, gS);
+add(new THREE.TorusGeometry(.3,.012,8,40,Math.PI), M.alu, SX,4.08,-2.6, globeFallback).rotation.set(0,Math.PI/2,.4);
+add(new THREE.CylinderGeometry(.1,.14,.08,24), M.alu, SX,3.73,-2.6, globeFallback);
 add(new THREE.LatheGeometry([[0,0],[.14,0],[.18,.12],[.12,.36],[.08,.42],[.1,.46],[0,.46]].map(p=>new THREE.Vector2(...p)),32), M.ceramic, SX,3.69,-1.5, gS);
 rod([SX,4.1,-1.5],[SX+.05,4.55,-1.45],.008,mat("#5a4330"),gS);
 
@@ -538,7 +613,20 @@ function drawSky(){
     for (let i=0;i<40;i++) g.fillRect(r3()*W, H-20-r3()*110, 5, 7); }
   skyTex.needsUpdate = true;
 }
-function drawAll(){ drawMonitor(); drawPhone(); drawPoster(); drawPixel(); drawSky(); }
+function drawPin(){
+  // the canvas grows to fit the label, and the sprite keeps the canvas's aspect so nothing is clipped
+  const g = pinCanvas.getContext("2d"), H = 128, font = `800 52px ${F.display}`;
+  const label = I[state.lang].pin;
+  g.font = font; const tw = g.measureText(label).width, W = Math.ceil(tw + 130);
+  if (pinCanvas.width !== W){ pinCanvas.width = W; pinTex.dispose(); }
+  g.clearRect(0,0,W,H); g.font = font;
+  g.fillStyle = "rgba(10,13,46,.86)"; rr(g,4,14,W-8,H-28,(H-28)/2); g.fill();
+  g.fillStyle = "#ff5a3c"; g.beginPath(); g.arc(54,H/2,14,0,7); g.fill();
+  g.fillStyle = "#fff"; g.textBaseline = "middle"; g.fillText(label, 84, H/2+2); g.textBaseline = "alphabetic";
+  pinTex.needsUpdate = true;
+  pin.scale.set(.05*W/H, .05, 1);
+}
+function drawAll(){ drawMonitor(); drawPhone(); drawPoster(); drawPixel(); drawSky(); drawPin(); }
 drawAll();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!disposed) drawAll(); });
 
@@ -547,6 +635,7 @@ function updateLamp(){
   lampLight.intensity = lampOn ? (state.mode === "night" ? 1.7 : .5) : 0;
   lampLight.distance = state.mode === "night" ? 6.5 : 5;
   bulb.material.color.set(lampOn ? "#fff1d6" : "#6a6e7c");
+  lampBulbMats.forEach(mm => mm.emissiveIntensity = lampOn ? mm.userData.on : 0);
 }
 function applyMode(){
   const night = state.mode !== "day";
@@ -564,6 +653,7 @@ const VIEWS = {
   projects: {t:[.6,3.05,-4.45], s:1.3, yaw:.18, el:.32},
   skills:   {t:[-4.5,2.4,-2.0], s:2.3, yaw:1.25, el:.38},
   contact:  {t:[-.75,2.0,-3.55], s:.95, yaw:.35, el:1.05},
+  globe:    {t:[-4.55,4.15,-2.6], s:.75, yaw:Math.PI/4, el:.25},
   about:    {t:[-4.95,3.3,1.9], s:1.75, yaw:1.3, el:.3}
 };
 const PANEL_W = 460;
@@ -646,7 +736,7 @@ canvas.addEventListener("pointerleave", onLeave);
 function toggleLamp(){ lampOn = !lampOn; updateLamp(); }
 
 /* hotspot anchors (world space) */
-const ANCHOR = { about:[-4.9,4.75,1.9], skills:[-4.5,4.5,-2.0], projects:[.6,4.0,-4.4], contact:[-.75,2.25,-3.55], pixel:[-2.55,4.98,-4.9], lamp:[-1.38,3.5,-4.0] };
+const ANCHOR = { about:[-4.9,4.75,1.9], skills:[-4.5,4.5,-1.5], globe:[-4.55,4.75,-2.75], projects:[.6,4.0,-4.4], contact:[-.75,2.25,-3.55], pixel:[-2.55,4.98,-4.9], lamp:[-1.3,3.4,-3.85] };
 const v3 = new THREE.Vector3();
 
 /* ================= loop ================= */
@@ -672,7 +762,7 @@ function frame(now){
     const want = (hovered === k || (hovered && hovered.startsWith("book:") && k === "skills")) && state.focus !== k ? 1 : 0;
     g.userData.hl += (want - g.userData.hl) * Math.min(1, dt*8);
     const h = g.userData.hl;
-    g.traverse(o => { if (!o.material) return; (Array.isArray(o.material) ? o.material : [o.material]).forEach(mm => { if (mm.emissive) mm.emissive.setRGB(.03*h,.05*h,.35*h); }); });
+    g.traverse(o => { if (!o.material) return; (Array.isArray(o.material) ? o.material : [o.material]).forEach(mm => { if (mm.emissive && !ownGlow.has(mm)) mm.emissive.setRGB(.03*h,.05*h,.35*h); }); });
   }
   books.forEach(b => {
     const i = b.userData.book;
@@ -683,6 +773,16 @@ function frame(now){
   steam.forEach(s => { const p = reduce ? .3 : ((t*.35 + s.userData.o) % 1);
     s.position.set(2.35 + Math.sin(p*9 + s.userData.o*6)*.06, 2.35 + p*.8, -3.7); s.scale.setScalar(.6 + p*1.4); s.material.opacity = .45*(1-p); });
   trophy.rotation.y += reduce ? 0 : dt*.25;
+  if (globe.kure){
+    // spins idly; when Germany is on, it eases back to the pose where Germany faces the room
+    if (globe.on){ const home = Math.round(globe.spin/(Math.PI*2))*Math.PI*2; globe.spin += (home - globe.spin)*Math.min(1, dt*3); }
+    else if (!reduce) globe.spin += dt*.25;
+    globe.kure.quaternion.setFromAxisAngle(globe.axis, globe.spin).multiply(globe.q0);
+    globe.glow += ((globe.on ? 1 : 0) - globe.glow)*Math.min(1, dt*5);
+    const pulse = reduce ? 1 : .8 + .2*Math.sin(t*4);
+    globe.mats.forEach(mm => mm.emissiveIntensity = mm.userData.on*globe.glow*pulse*2);
+    pin.material.opacity = globe.glow; pin.visible = globe.glow > .01;
+  }
   const d = new Date(), sec = d.getSeconds() + d.getMilliseconds()/1000, mi = d.getMinutes() + sec/60, hr = (d.getHours()%12) + mi/60;
   hS.rotation.z = -sec/60*Math.PI*2; hM.rotation.z = -mi/60*Math.PI*2; hH.rotation.z = -hr/12*Math.PI*2;
   if (d.getMinutes() !== phoneMin){ phoneMin = d.getMinutes(); drawPhone(); }
@@ -703,10 +803,10 @@ raf = requestAnimationFrame(frame);
 
 /* ================= API for React ================= */
 return {
-  setFocus(k){ state.focus = k; dragYaw = 0; dragEl = 0; computeTarget(); drawMonitor(); },
+  setFocus(k){ state.focus = k; globe.on = k === "globe"; dragYaw = 0; dragEl = 0; computeTarget(); drawMonitor(); },
   setProject(i){ state.proj = i; drawMonitor(); },
   setSkill(i){ state.skill = i; },
-  setLang(l){ state.lang = l; drawMonitor(); drawPhone(); },
+  setLang(l){ state.lang = l; drawMonitor(); drawPhone(); drawPin(); },
   setMode(m){ state.mode = m; applyMode(); },
   toggleLamp,
   dispose(){
