@@ -16,7 +16,7 @@ export const I = {
     nav:{about:"Hakkımda",skills:"Yetenekler",projects:"Projeler",contact:"İletişim"},
     tips:{about:"Hakkımda",skills:"Yetenekler",projects:"Projeler",contact:"İletişim",pixel:"Pixel Art Platform",lamp:"Lambayı aç/kapat",globe:"Nerede yaşıyorum"}, pin:"Almanya, Karlsruhe", globeText:"Almanya'nın Karlsruhe şehrinde yaşıyor ve çalışıyorum.",
     status:"Freelance işlere açığım", aboutTitle:"Merhaba, ben Turgut.",
-    aboutText:"React, Next.js ve Node.js ile modern uygulamalar geliştiren, 2 yıllık deneyime sahip 22 yaşında bir full-stack geliştiriciyim. Temiz, hızlı ve özenli kullanıcı deneyimlerine odaklanıyorum.",
+    aboutText:"React, Next.js ve Node.js ile modern uygulamalar geliştiren, 4 yıllık deneyime sahip 22 yaşında bir full-stack geliştiriciyim. Temiz, hızlı ve özenli kullanıcı deneyimlerine odaklanıyorum.",
     aboutText2:"Bu oda benim: monitörde projelerim, rafta yeteneklerim var, telefon da bana ulaşmanın yolu.",
     seeProjects:"Projeleri gör", getInTouch:"İletişime geç",
     skillsTitle:"Yetenekler & araçlar", skillsSub:"Raftaki her kitap çalıştığım bir alan. Birini seç.",
